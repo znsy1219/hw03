@@ -14,7 +14,7 @@ library(scales)
 
 ### Exercise 1
 
-```{r hw2-ex1}
+```{r hw3-ex1}
 # remove this comment and add the code for Exercise 1 here
 
 ```
@@ -24,7 +24,7 @@ _Remove this text, and add your answer for Exercise 1 here._
 
 ### Exercise 2
 
-```{r hw2-ex2}
+```{r hw3-ex2}
 # remove this comment and add the code for Exercise 2 here
 
 ```
@@ -34,7 +34,7 @@ _Remove this text, and add your answer for Exercise 2 here._
 
 ### Exercise 3
 
-```{r hw2-ex3}
+```{r hw3-ex3}
 # remove this comment and add the code for Exercise 3 here
 
 ```
@@ -44,7 +44,7 @@ _Remove this text, and add your answer for Exercise 3 here._
 
 ### Exercise 4
 
-```{r hw2-ex4}
+```{r hw3-ex4}
 # remove this comment and add the code for Exercise 4 here
 
 ```
@@ -54,7 +54,7 @@ _Remove this text, and add your answer for Exercise 4 here._
 
 ### Exercise 5
 
-```{r hw2-ex5}
+```{r hw3-ex5}
 # remove this comment and add the code for Exercise 5 here
 
 ```
