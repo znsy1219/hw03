@@ -5,60 +5,14 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-### Load packages
+```{r setup, include=FALSE}
+## **DO NOT EDIT THIS CODE CHUNK**
+knitr::opts_chunk$set(echo = TRUE)
 
-```{r load-packages, message = FALSE, warning=FALSE}
 library(tidyverse)
-library(scales)
-```
-
-### Exercise 1
-
-```{r hw3-ex1}
-# remove this comment and add the code for Exercise 1 here
-
 ```
 
 
-_Remove this text, and add your answer for Exercise 1 here._
+## Warning!
 
-### Exercise 2
-
-```{r hw3-ex2}
-# remove this comment and add the code for Exercise 2 here
-
-```
-
-
-_Remove this text, and add your answer for Exercise 2 here._
-
-### Exercise 3
-
-```{r hw3-ex3}
-# remove this comment and add the code for Exercise 3 here
-
-```
-
-
-_Remove this text, and add your answer for Exercise 3 here._
-
-### Exercise 4
-
-```{r hw3-ex4}
-# remove this comment and add the code for Exercise 4 here
-
-```
-
-
-_Remove this text, and add your answer for Exercise 4 here._
-
-### Exercise 5
-
-```{r hw3-ex5}
-# remove this comment and add the code for Exercise 5 here
-
-```
-
-
-_Remove this text, and add your answer for Exercise 5 here._
-
+The homework assignment is yet to be released. Further information about the assignments can be found on the [course website](https://uoe-ids.netlify.app/assessments/homework/), including release dates.
