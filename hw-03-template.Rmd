@@ -23,10 +23,6 @@ gss16<-read.csv("data/gss16.csv")
 
 The `gss16` data set needs to be prepared prior to modelling. This is not an assessed component to your assignment, but it is an important part of the data science process. Carefully copy the following code into the beginning of your `.Rmd` file and ensure that you understand how the data has been prepared.
 
-```{marginfigure}
-It's important that you don't recode the NAs, just the remaining levels.
-```
-
 ### Cleaning and selecting rows 
 
 Create a new data frame called `gss16_advfront` that includes the variables `advfront`, `emailhr` (Number of hours spent on email weekly), `educ` (education level), `polviews` (political views) and `wrkstat` (working status). Remove any row that contains any `NA`s using the `drop_na()` command
