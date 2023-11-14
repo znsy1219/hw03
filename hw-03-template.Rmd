@@ -13,34 +13,63 @@ library(tidyverse)
 ```
 
 
-## Data Load and Preparation
+## Data Load
 
 ```{r read_data}
 gss16<-read.csv("data/gss16.csv")
 ```
 
-Re-level the `advfront` variable such that it has two levels:
+## Data preparation before modelling
+
+The `gss16` data set needs to be prepared prior to modelling. This is not an assessed component to your assignment, but it is an important part of the data science process. Carefully copy the following code into the beginning of your `.Rmd` file and ensure that you understand how the data has been prepared.
+
+```{marginfigure}
+It's important that you don't recode the NAs, just the remaining levels.
+```
+
+### Cleaning and selecting rows 
+
+Create a new data frame called `gss16_advfront` that includes the variables `advfront`, `emailhr` (Number of hours spent on email weekly), `educ` (education level), `polviews` (political views) and `wrkstat` (working status). Remove any row that contains any `NA`s using the `drop_na()` command
 
 ```{r}
-gss16 <- gss16 %>%
+gss16_advfront <- gss16 %>%
+  select(advfront, emailhr, educ, polviews, wrkstat) %>%
+  drop_na()
+```
+
+### Re-levelling `advfront`
+
+The `advfront` variable contains responses to the question "Even if it brings no immediate benefits, scientific research that advances the frontiers of knowledge is necessary and should be supported by the federal government." The possible answers are on the 5-point Likert scale: `"Strongly agree"`, `"Agree"`, `"Dont know"`, `"Disagree"` and `"Strongly disagree"`. For the purpose of this assignment, the `advfront` variable needs to be transformed such that it has two levels: 
+
+* `"Agree"` - combining the options `"Strongly agree"` and `"Agree"`.
+* `"Not agree"` - combining the options `"Dont know"`, `"Disagree"` and `"Strongly disagree"`.
+
+The following code does that this re-levelling:
+
+```{r}
+gss16_advfront <- gss16_advfront %>%
   mutate(
     advfront = case_when(
-      advfront %in% c("Agree", "Strongly agree") ~ "Agree",
-      is.na(advfront) ~ NA_character_,
+      advfront == "Strongly agree" ~ "Agree",
+      advfront == "Agree" ~ "Agree",
       TRUE ~ "Not agree"
     ),
     advfront = fct_relevel(advfront, "Not agree", "Agree")
   )
-
-gss16 %>%
-  count(advfront)
-
 ```
 
-Combine the levels of the `polviews` variable (political views) such that levels that have the word "liberal" in them are lumped into a level called `"Liberal"` and those that have the word "conservative" in them are lumped into a level called `"Conservative"`. Then, re-order the levels in the following order: `"Conservative"` , `"Moderate"`, and `"Liberal"`
+
+### Re-levelling `polviews`
+
+
+```{marginfigure}
+You can do this in various ways. One option is to use the `str_detect()` function to detect the existence of words like liberal or conservative. Note that these sometimes show up with lowercase first letters and sometimes with upper case first letters. To detect either in the `str_detect()` function, you can use "[Ll]iberal" and "[Cc]onservative". But feel free to solve the problem however you like, this is just one option!
+```
+
+The `polviews` variable contains information about the participant's political position within 7 categories ranging from `"Extremely liberal"` to `"Extrmly conservative"`. Here we wish to simplify the range of options to 3 categories - `"Conservative"` , `"Moderate"`, and `"Liberal"`. This is achieved via the following code:
 
 ```{r}
-gss16 <- gss16 %>%
+gss16_advfront <- gss16_advfront %>%
   mutate(
     polviews = case_when(
       str_detect(polviews, "[Cc]onservative") ~ "Conservative",
@@ -49,20 +78,11 @@ gss16 <- gss16 %>%
     ),
     polviews = fct_relevel(polviews, "Conservative", "Moderate", "Liberal")
   )
-
-gss16 %>%
-  count(polviews)
 ```
 
-Selecting and removing missing observations
+Please see [chapter 14 of R for Data Science](https://r4ds.had.co.nz/strings.html) for more on string processing commands.
 
-```{r}
-gss16_advfront <- gss16 %>%
-  select(advfront, emailhr, educ, polviews, wrkstat) %>%
-  drop_na()
-
-gss16_advfront[1:10,]
-```
+You now have the cleaned and pre-processe data to use for modelling, you can continue with the `gss16_advfront` for the following questions. 
 
 ## Exercise 1: Create a linear regression model
 
