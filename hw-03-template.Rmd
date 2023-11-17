@@ -102,7 +102,7 @@ The responses to the question on the GSS about this statement are in the `advfro
 
 First, use the following code to split the dataset into a training dataset (`gss16_train`) and a testing dataset (`gss16_test`). This code splits the data into 75\% training and 25\% testing.
 
-```{r split-data, eval=FALSE}
+```{r split-data}
 set.seed(1234)
 gss16_split <- initial_split(gss16_advfront)
 gss16_train <- training(gss16_split)
