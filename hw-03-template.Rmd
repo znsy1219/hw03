@@ -224,7 +224,18 @@ gss16_predictions %>%
 #### Exercise 4 (a)
 
 ```{r}
-# replace this with your code
+gss16_rec_2 <- recipe(advfront ~ polviews + wrkstat + educ, data = gss16_train)
+
+gss16_mod_2 <- logistic_reg() %>%
+  set_engine("glm") %>%
+  set_mode("classification")
+
+gss16_wflow_2 <- workflow() %>%
+  add_model(gss16_mod_2) %>%
+  add_recipe(gss16_rec_2)
+
+gss16_fit_2 <- gss16_wflow_2 %>%
+  fit(data = gss16_train)
 ```
 
 *Your answer here*
@@ -233,7 +244,25 @@ gss16_predictions %>%
 #### Exercise 4 (b)
   
 ```{r}
-# replace this with your code
+
+gss16_rec_2 <- recipe(advfront ~ polviews + wrkstat + educ, data = gss16_train) %>%
+  step_dummy(all_nominal_predictors()) 
+
+gss16_predictions <- predict(gss16_fit_2, gss16_test, type = "prob") %>%
+  bind_cols(gss16_test)
+
+gss16_roc <- roc_curve(gss16_predictions, truth = advfront, .pred_Agree)
+
+autoplot(gss16_roc) +
+  labs(
+    title = "ROC Curve for Logistic Regression Model",
+    x = "False Positive Rate (1 - Specificity)",
+    y = "True Positive Rate (Sensitivity)"
+  ) +
+  theme_minimal()
+
+gss16_auc <- roc_auc(gss16_predictions, truth = advfront, .pred_Agree)
+cat("AUC:", gss16_auc$.estimate, "\n")
 ```
 
 *Your answer here*
