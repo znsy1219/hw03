@@ -270,8 +270,38 @@ cat("AUC:", gss16_auc$.estimate, "\n")
 #### Exercise 4 (c) 
 
 ```{r}
-# replace this with your code
+predictions_1 <- predict(gss16_fit_1, gss16_test, type = "prob") %>%
+  bind_cols(gss16_test)
+
+auc_1 <- roc_auc(predictions_1, truth = advfront, .pred_Agree)
+cat("Model 1 (only educ) AUC:", auc_1$.estimate, "\n")
+
+gss16_auc <- roc_auc(gss16_predictions, truth = advfront, .pred_Agree)
+cat("Model 2 AUC:", gss16_auc$.estimate, "\n")
+
+
+roc_1 <- roc_curve(predictions_1, truth = advfront, .pred_Agree) %>%
+  mutate(model = "Model 1: Only educ")
+
+roc_2 <- gss16_roc %>%
+  mutate(model = "Model 2: polviews, wrkstat, educ")
+
+combined_roc <- bind_rows(roc_1, roc_2)
+
+ggplot(combined_roc, aes(x = 1 - specificity, y = sensitivity, color = model)) +
+  geom_line(size = 1.2) +
+  geom_abline(linetype = "dashed", color = "gray") +
+  labs(
+    title = "ROC Curve Comparison",
+    x = "False Positive Rate (1 - Specificity)",
+    y = "True Positive Rate (Sensitivity)"
+  ) +
+  theme_minimal() +
+  scale_color_manual(values = c("blue", "red"))
+
 ```
 
-*Your answer here*
+The AUC value for model 1 is smaller than model 2, which indicates that the model 2 performs better.
+Also, from the ROC curve, the steeper curve indicates better performance.
+In conclusion, the model 2 has better performance
 
