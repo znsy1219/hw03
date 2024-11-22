@@ -137,7 +137,7 @@ gss16_wflow_1 <- workflow() %>%
 
 ```
 
-*Your answer here*
+The higher the number of years of education, the more likely a person is to support funding for scientific research.
 
 #### Exercise 2 (b)
 
@@ -145,15 +145,24 @@ gss16_wflow_1 <- workflow() %>%
 # replace this with your code
 ```
 
-*Your answer here*
+The response variable advfront is binary. Logistic regression is a standard method for binary classification. Also it is a computationally efficient model.
+Logistic regression fits the requirements of this task (binary classification), and is computationally efficient. While more complex models like decision trees or random forests could be used, they would add unnecessary complexity and reduce interpretability for this specific problem.
+
 
 #### Exercise 2 (c)
 
 ```{r}
-# replace this with your code
+gss16_fit_1 <- fit(gss16_wflow_1, data = gss16_train)
+
+tidy(gss16_fit_1)
+
 ```
 
-*Your answer here*
+Intercept: When educ = 0, the log-odds of agreeing with the statement are -0.3750807.
+educ: For every additional year of education, the log-odds of agreeing increase by 0.1497668.
+Significance: Both coefficients are statistically significant (p.value < 0.5).
+
+Model Equation: log-odds(advfront="Agree")=-0.3750807+0.1497668⋅educ
 
 ## Exercise 3: Logistic regression with single predictor
 
