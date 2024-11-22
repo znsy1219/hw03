@@ -82,7 +82,11 @@ glance(model)
 
 ```
 
-*Your answer here*
+p-value is a low value, indicates that the model is statistically significant, meaning the predictors is contributing to explaining the variance in emailhr.
+The R squared value after adjustment decreased.
+r.squared=0.08517216: This means that 8.5% of the variance in emailhr is explained by educ and fulltime.
+adj.r.squared =0.08360701: This indicates that the model is a good fit without overfitting.
+
 
 #### Exercise 1 (b)
 
