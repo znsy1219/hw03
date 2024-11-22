@@ -120,12 +120,6 @@ gss16_test  <- testing(gss16_split)
 
 ```{r}
 
-set.seed(1234)
-
-gss16_split <- initial_split(gss16_advfront, prop = 0.75)
-gss16_train <- training(gss16_split)
-gss16_test <- testing(gss16_split)
-
 gss16_rec_1 <- recipe(advfront ~ educ, data = gss16_train)
 
 gss16_mod_1 <- logistic_reg() %>%
