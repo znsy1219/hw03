@@ -170,7 +170,32 @@ Model Equation: log-odds(advfront="Agree")=-0.3750807+0.1497668⋅educ
 #### Exercise 3 (a)
 
 ```{r}
-# replace this with your code
+
+gss16_predictions <- predict(gss16_fit_1, gss16_test, type = "prob") %>%
+  bind_cols(gss16_test)
+
+glimpse(gss16_predictions)
+
+gss16_roc <- roc_curve(gss16_predictions, truth = advfront, .pred_Agree)
+
+autoplot(gss16_roc) +
+  labs(
+    title = "ROC Curve for Logistic Regression Model",
+    x = "False Positive Rate (1 - Specificity)",
+    y = "True Positive Rate (Sensitivity)",
+    caption = "Evaluating the model's ability to predict 'Agree'"
+  ) +
+  theme_minimal()
+
+```
+
+*Your answer here*
+
+## Exercise 4: Logistic regression modelling and interpretation
+
+#### Exercise 4 (a)
+
+```{r}
 ```
 
 *Your answer here*
@@ -178,7 +203,18 @@ Model Equation: log-odds(advfront="Agree")=-0.3750807+0.1497668⋅educ
 #### Exercise 3 (b)
 
 ```{r}
-# replace this with your code
+gss16_predictions <- gss16_predictions %>%
+  mutate(
+    .pred_class = factor(if_else(.pred_Agree >= 0.85, "Agree", "Not agree"), 
+      levels = levels(advfront) ) ) 
+gss16_predictions %>% 
+  
+  sens(truth = advfront, estimate = .pred_class)
+glimpse(gss16_predictions)
+gss16_predictions %>% 
+  
+  spec(truth = advfront, estimate = .pred_class)
+
 ```
 
 *Your answer here*
@@ -193,6 +229,7 @@ Model Equation: log-odds(advfront="Agree")=-0.3750807+0.1497668⋅educ
 
 *Your answer here*
 
+  
 #### Exercise 4 (b)
   
 ```{r}
