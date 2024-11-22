@@ -71,7 +71,15 @@ gss16_advfront <- gss16_advfront %>%
 #### Exercise 1 (a)
 
 ```{r}
-# replace this with your code
+
+model <- lm(emailhr ~ educ + fulltime, data = gss16_advfront)
+
+summary(model)
+
+
+glance(model)
+
+
 ```
 
 *Your answer here*
@@ -79,7 +87,22 @@ gss16_advfront <- gss16_advfront %>%
 #### Exercise 1 (b)
 
 ```{r}
-# replace this with your code
+
+print(glance(model))
+
+par(mfrow = c(2, 2))  
+plot(model)
+
+
+ggplot(gss16_advfront, aes(x = educ, y = emailhr, color = fulltime)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Relationship Between Education, Fulltime Status, and Email Hours",
+       x = "Education (Years)", y = "Email Hours per Week",
+       color = "Full-time Status") +
+  theme_minimal()
+
+
 ```
 
 *Your answer here*
@@ -96,7 +119,22 @@ gss16_test  <- testing(gss16_split)
 #### Exercise 2 (a)
 
 ```{r}
-# replace this with your code
+
+set.seed(1234)
+
+gss16_split <- initial_split(gss16_advfront, prop = 0.75)
+gss16_train <- training(gss16_split)
+gss16_test <- testing(gss16_split)
+
+gss16_rec_1 <- recipe(advfront ~ educ, data = gss16_train)
+
+gss16_mod_1 <- logistic_reg() %>%
+  set_engine("glm")
+
+gss16_wflow_1 <- workflow() %>%
+  add_recipe(gss16_rec_1) %>%
+  add_model(gss16_mod_1)
+
 ```
 
 *Your answer here*
