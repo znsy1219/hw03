@@ -109,8 +109,11 @@ ggplot(gss16_advfront, aes(x = educ, y = emailhr, color = fulltime)) +
 
 ```
 
-*Your answer here*
-
+Residuals vs Fitted plot shows no clear pattern, this suggests that the linearity assumption is satisfied.
+The Normal Q-Q plot, the high theoretical quantiles do not fit in the straight line, which indicates that normality assumption is not satisfied.
+In the Scale-Location plot, the points are randomly scattered and not funnel-shaped, which indicates that the homoscedasticity is satisfied.
+In Residuals vs Leverage, there is no influential points are visible.
+I think this model is not a good fit for these data. It is necessary to apply transformations to the predictors or consider alternative models.
 ## Exercise 2: Create a workflow to fit a model
 
 ```{r split-data}
